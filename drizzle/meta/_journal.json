@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1725819229154,
+      "tag": "0000_minor_marauders",
+      "breakpoints": true
+    }
+  ]
+}
