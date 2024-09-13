@@ -1,16 +1,19 @@
 "use client";
 
-import { useMountedState } from "react-use";
-
 import { NewAccountSheet } from "@/features/accounts/components/new-account-sheet";
+import { useEffect, useState } from "react";
 
 export const SheetProvider = () => {
-  const isMounted = useMountedState();
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (!isMounted()) {
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    console.log("SheetProvider is not mounted");
     return null;
   }
-
   return (
     <>
       <NewAccountSheet />
