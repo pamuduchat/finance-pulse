@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { useGetAccounts } from "@/features/accounts/api/use_get_accounts";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete";
 
 import { Loader2, Plus } from "lucide-react";
 import { columns } from "./columns";
@@ -20,8 +21,11 @@ const data = [];
 
 const AccountsPage = () => {
   const newAccount = useNewAccount();
+  const deleteAccounts = useBulkDeleteAccounts();
   const accountsQuery = useGetAccounts();
   const accounts = accountsQuery.data || [];
+
+  const isDisabled = accountsQuery.isLoading || deleteAccounts.isPending;
 
   if (accountsQuery.isLoading) {
     return (
@@ -55,8 +59,11 @@ const AccountsPage = () => {
             columns={columns}
             data={accounts}
             filterKey="email"
-            onDelete={() => {}}
-            disabled={false}
+            onDelete={(row) => {
+              const ids = row.map((r) => r.original.id);
+              deleteAccounts.mutate({ ids });
+            }}
+            disabled={isDisabled}
           />
         </CardContent>
       </Card>
