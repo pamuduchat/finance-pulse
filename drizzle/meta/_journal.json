@@ -15,6 +15,13 @@
       "when": 1725820702508,
       "tag": "0001_outgoing_masque",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1735282907382,
+      "tag": "0002_living_magus",
+      "breakpoints": true
     }
   ]
 }

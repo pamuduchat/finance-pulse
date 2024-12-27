@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,12 @@ export const useConfirm = (
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void;
   } | null>(null);
+
+  useEffect(() => {
+    return () => {
+      setPromise(null); // Cleanup promise on unmount
+    };
+  }, []);
 
   const confirm = () =>
     new Promise((resolve, reject) => {
