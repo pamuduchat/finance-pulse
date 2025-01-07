@@ -10,14 +10,16 @@ import { AccountForm } from "@/features/accounts/components/account-form";
 import { useCreateAccount } from "@/features/accounts/api/use-create-accounts";
 import { insertAccountSchema } from "@/db/schema";
 import { z } from "zod";
+
+const formSchema = insertAccountSchema.pick({
+  name: true,
+});
+
+type FormValues = z.input<typeof formSchema>;
+
 export const NewAccountSheet = () => {
   const { isOpen, onClose } = useNewAccount();
   const mutation = useCreateAccount();
-  const formSchema = insertAccountSchema.pick({
-    name: true,
-  });
-
-  type FormValues = z.input<typeof formSchema>;
   const onSubmit = (values: FormValues) => {
     mutation.mutate(values, {
       onSuccess: () => {
