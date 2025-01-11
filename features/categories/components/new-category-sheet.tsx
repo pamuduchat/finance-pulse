@@ -10,14 +10,16 @@ import { useNewCategory } from "@/features/categories/hooks/use-new-category";
 import { useCreateCategory } from "@/features/categories/api/use-create-category";
 import { insertCategorySchema } from "@/db/schema";
 import { z } from "zod";
+
+const formSchema = insertCategorySchema.pick({
+  name: true,
+});
+
+type FormValues = z.input<typeof formSchema>;
+
 export const NewCategorySheet = () => {
   const { isOpen, onClose } = useNewCategory();
   const mutation = useCreateCategory();
-  const formSchema = insertCategorySchema.pick({
-    name: true,
-  });
-
-  type FormValues = z.input<typeof formSchema>;
   const onSubmit = (values: FormValues) => {
     mutation.mutate(values, {
       onSuccess: () => {
